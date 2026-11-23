@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>A Sunset Date for You, Baby ✨</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>For Baby — Nov 23</title>
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Cormorant Garamond (Romantic Display Serif) & Plus Jakarta Sans (Clean Modern Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* Custom Typography & Base Settings */
     :root {
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-paper: #F7F2EA;
+      --card-surface: #FFFDF9;
+      --ink-primary: #2A2421;
+      --ink-muted: #6E655F;
+      --accent-crimson: #9B3632;
+      --accent-crimson-dark: #7E2926;
+      --border-hairline: #E6DDD0;
     }
 
     * {
@@ -33,388 +35,263 @@
       width: 100%;
       min-height: 100dvh;
       overflow-x: hidden;
-      font-family: var(--font-sans);
-      color: #fdf6f0;
-      /* Deep twilight sunset gradient: Midnight Indigo -> Dusk Plum -> Warm Amber Rose */
-      background: linear-gradient(160deg, #0b1026 0%, #1b1738 42%, #3d2247 74%, #6b354b 100%);
-      background-attachment: fixed;
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .font-serif-display {
-      font-family: var(--font-serif);
-    }
-
-    /* Warm Sunset Horizon Glow */
-    .twilight-glow {
+    /* Subtle tactile paper grain overlay */
+    .paper-grain {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(circle at 50% 95%, rgba(251, 146, 60, 0.28) 0%, rgba(244, 114, 182, 0.12) 38%, transparent 70%),
-        radial-gradient(circle at 18% 18%, rgba(129, 140, 248, 0.14) 0%, transparent 45%);
+      z-index: 50;
+      opacity: 0.35;
+      background-image: radial-gradient(rgba(42, 36, 33, 0.09) 1px, transparent 0);
+      background-size: 20px 20px;
     }
 
-    /* Twinkling Stars Canvas */
-    #starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
+    .font-serif-editorial {
+      font-family: 'Cormorant Garamond', Georgia, serif;
     }
 
-    /* Glassmorphism Card Styling */
-    .glass-card {
-      background: rgba(24, 19, 44, 0.62);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(253, 212, 182, 0.22);
+    .font-handwriting {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Physical stationery card shadow & border */
+    .stationery-card {
+      background-color: var(--card-surface);
+      border: 1px solid var(--border-hairline);
       box-shadow:
-        0 20px 50px rgba(6, 8, 22, 0.55),
-        inset 0 1px 0 rgba(255, 237, 213, 0.16);
+        0 1px 2px rgba(42, 36, 33, 0.04),
+        0 14px 34px -10px rgba(42, 36, 33, 0.09);
     }
 
-    .glass-subcard {
-      background: rgba(255, 245, 238, 0.06);
-      border: 1px solid rgba(253, 186, 116, 0.2);
+    /* Wax seal button */
+    .wax-seal {
+      background: radial-gradient(circle at 32% 28%, #B2433E, #96322E 68%, #772420 100%);
+      box-shadow:
+        0 6px 16px rgba(150, 50, 46, 0.28),
+        inset 0 1px 2px rgba(255, 255, 255, 0.28),
+        inset 0 -2px 4px rgba(55, 14, 12, 0.35);
+      border: 1.5px solid rgba(255, 245, 238, 0.28);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
 
-    /* Envelope Seal Pulse Animation */
-    @keyframes pulseGlow {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.55), 0 10px 25px rgba(225, 29, 72, 0.45);
-      }
-      50% {
-        transform: scale(1.06);
-        box-shadow: 0 0 0 14px rgba(251, 146, 60, 0), 0 14px 32px rgba(225, 29, 72, 0.65);
-      }
+    .wax-seal:active {
+      transform: scale(0.95);
     }
 
-    .wax-seal-btn {
-      animation: pulseGlow 2.6s infinite ease-in-out;
-      background: radial-gradient(circle at 30% 30%, #fb7185, #be123c 75%, #881337 100%);
-      border: 2px solid rgba(254, 215, 170, 0.55);
+    /* Smooth card transitions */
+    .view-panel {
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* Gentle Floating Animation */
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-
-    .animate-float {
-      animation: floatSlow 4s ease-in-out infinite;
-    }
-
-    /* Screen Transitions */
-    .screen-section {
-      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .screen-hidden {
+    .view-hidden {
       opacity: 0;
-      transform: translateY(18px) scale(0.98);
+      transform: translateY(10px);
       pointer-events: none;
       position: absolute;
       visibility: hidden;
     }
 
-    .screen-visible {
+    .view-active {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
       pointer-events: auto;
       position: relative;
       visibility: visible;
     }
 
-    /* Dodging No Button Smooth Transition */
+    /* Dodging No button */
     #noBtn {
-      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+      transition: transform 0.24s cubic-bezier(0.34, 1.45, 0.64, 1), color 0.2s ease, border-color 0.2s ease;
       touch-action: manipulation;
       user-select: none;
     }
 
-    /* Primary Yes Button Shimmer */
-    .btn-yes {
-      background: linear-gradient(135deg, #f59e0b 0%, #f43f5e 55%, #db2777 100%);
-      box-shadow: 0 10px 26px rgba(244, 63, 94, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    #yesBtn {
+      background-color: var(--accent-crimson);
+      transition: background-color 0.2s ease, transform 0.18s ease;
+      touch-action: manipulation;
     }
 
-    .btn-yes:active {
-      transform: scale(0.96);
+    #yesBtn:hover {
+      background-color: var(--accent-crimson-dark);
     }
 
-    /* Ticket Perforation Divider */
-    .ticket-divider {
-      position: relative;
-      border-top: 1.5px dashed rgba(253, 186, 116, 0.35);
+    #yesBtn:active {
+      transform: scale(0.97);
     }
 
-    .ticket-divider::before,
-    .ticket-divider::after {
-      content: '';
-      position: absolute;
-      top: -11px;
-      width: 20px;
-      height: 20px;
-      border-radius: 9999px;
-      background: #23193b;
-      border: 1px solid rgba(253, 212, 182, 0.22);
+    /* Sound indicator dot */
+    @keyframes softPulse {
+      0%, 100% { opacity: 0.45; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
     }
 
-    .ticket-divider::before {
-      left: -31px;
+    .sound-active .sound-dot {
+      background-color: var(--accent-crimson);
+      animation: softPulse 1.8s infinite ease-in-out;
     }
 
-    .ticket-divider::after {
-      right: -31px;
+    .sound-muted .sound-dot {
+      background-color: #B8AFA6;
     }
 
-    /* Floating Celebration Hearts */
-    @keyframes riseHeart {
+    /* Subtle floating heart/petal particles on acceptance */
+    @keyframes floatPetal {
       0% {
-        transform: translateY(0) scale(0.6) rotate(0deg);
+        transform: translateY(0) rotate(0deg);
         opacity: 0;
       }
       15% {
-        opacity: 1;
+        opacity: 0.75;
       }
       100% {
-        transform: translateY(-85vh) scale(1.25) rotate(24deg);
+        transform: translateY(-75vh) rotate(22deg);
         opacity: 0;
       }
     }
 
-    .floating-heart {
+    .petal-particle {
       position: fixed;
-      bottom: -30px;
+      bottom: -24px;
       pointer-events: none;
-      z-index: 50;
-      animation: riseHeart linear forwards;
-    }
-
-    /* Animated Equalizer Bars for Floating Music Pill */
-    @keyframes eqBounce {
-      0%, 100% { transform: scaleY(0.35); }
-      50% { transform: scaleY(1); }
-    }
-
-    .eq-bar {
-      width: 2.5px;
-      height: 12px;
-      border-radius: 9999px;
-      background-color: #fcd34d;
-      transform-origin: bottom;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .music-playing .eq-bar:nth-child(1) { animation: eqBounce 0.85s infinite ease-in-out; }
-    .music-playing .eq-bar:nth-child(2) { animation: eqBounce 0.65s infinite ease-in-out 0.2s; }
-    .music-playing .eq-bar:nth-child(3) { animation: eqBounce 0.95s infinite ease-in-out 0.35s; }
-
-    .music-muted .eq-bar {
-      transform: scaleY(0.3);
-      opacity: 0.45;
-      animation: none;
+      z-index: 40;
+      color: var(--accent-crimson);
+      animation: floatPetal linear forwards;
     }
   </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-[100dvh] px-4 py-6 sm:px-6 md:py-10 relative">
+<body class="flex flex-col items-center justify-center min-h-[100dvh] px-5 py-8 sm:px-6 relative">
 
-  <!-- Ambient Twilight Glow & Twinkling Stars -->
-  <div class="twilight-glow"></div>
-  <canvas id="starfield"></canvas>
+  <div class="paper-grain"></div>
 
-  <!-- Floating Music Control Pill (Top-Right, Safe-Area Aware) -->
+  <!-- Minimal top-right sound toggle -->
   <button
-    id="musicToggleBtn"
+    id="soundToggle"
     type="button"
-    aria-label="Toggle romantic background music"
-    class="music-muted fixed top-4 right-4 sm:top-6 sm:right-6 z-40 glass-card px-3.5 py-2 rounded-full flex items-center gap-2 text-xs font-medium text-amber-100/90 hover:text-white active:scale-95 transition-all cursor-pointer shadow-lg"
+    aria-label="Toggle background music"
+    class="sound-muted fixed top-4 right-4 sm:top-6 sm:right-6 z-30 px-3.5 py-1.5 rounded-full bg-[#FFFDF9]/90 backdrop-blur-sm border border-[#E6DDD0] text-xs font-medium text-[#6E655F] hover:text-[#2A2421] flex items-center gap-2 shadow-sm transition-colors cursor-pointer"
     style="margin-top: env(safe-area-inset-top, 0px);"
   >
-    <span id="musicIcon" class="text-sm leading-none">🔇</span>
-    <span class="flex items-end gap-[2.5px] h-3" aria-hidden="true">
-      <span class="eq-bar"></span>
-      <span class="eq-bar"></span>
-      <span class="eq-bar"></span>
-    </span>
-    <span id="musicLabel" class="tracking-wide">Music Off</span>
+    <span class="sound-dot w-2 h-2 rounded-full inline-block"></span>
+    <span id="soundLabel">Sound off</span>
   </button>
 
-  <!-- Main Responsive Container (Optimized for iPhone & iPad) -->
-  <main class="w-full max-w-md md:max-w-lg z-10 relative my-auto">
+  <!-- Main container -->
+  <main class="w-full max-w-[420px] md:max-w-[460px] my-auto relative z-10">
 
-    <!-- ========================================================= -->
-    <!-- SCREEN 1: SEALED ENVELOPE INTRO                           -->
-    <!-- ========================================================= -->
-    <section id="introScreen" class="screen-section screen-visible">
-      <div class="glass-card rounded-3xl p-7 sm:p-9 text-center relative overflow-hidden">
-        <!-- Subtle top shimmer line -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[1.5px] bg-gradient-to-r from-transparent via-amber-300/70 to-transparent"></div>
+    <!-- STEP 1: ENVELOPE COVER -->
+    <section id="coverView" class="view-panel view-active">
+      <div class="stationery-card rounded-2xl p-8 sm:p-11 text-center relative">
+        <!-- Double hairline inner frame -->
+        <div class="border border-[#EFE7DC] rounded-xl px-5 py-10 sm:py-12">
+          <p class="text-[11px] uppercase tracking-[0.22em] text-[#8C7F75] font-medium mb-4">
+            November 23
+          </p>
 
-        <p class="uppercase tracking-[0.25em] text-[11px] sm:text-xs text-amber-200/85 font-semibold mb-3">
-          November 23 • Special Delivery
-        </p>
+          <h1 class="font-serif-editorial text-4xl sm:text-[44px] font-medium text-[#2A2421] leading-tight mb-3">
+            For <span class="italic">Baby</span>
+          </h1>
 
-        <h1 class="font-serif-display text-4xl sm:text-5xl font-semibold text-amber-50 leading-tight mb-3">
-          For You, <span class="italic text-amber-300">Baby</span>
-        </h1>
+          <p class="text-sm text-[#6E655F] max-w-[240px] mx-auto leading-relaxed mb-9">
+            A small note for our evening later.
+          </p>
 
-        <p class="text-sm sm:text-base text-rose-100/80 max-w-xs mx-auto leading-relaxed mb-8">
-          I put together a little something for our evening later. Tap the seal below to open your invitation.
-        </p>
-
-        <!-- Interactive Envelope Illustration -->
-        <div class="relative mx-auto w-full max-w-[280px] h-44 rounded-2xl bg-gradient-to-b from-amber-100/15 to-rose-950/40 border border-amber-200/25 flex flex-col items-center justify-center shadow-inner mb-6 animate-float">
-          <!-- Envelope Flap Lines (SVG) -->
-          <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-45" viewBox="0 0 280 176" fill="none" preserveAspectRatio="none">
-            <path d="M0 0 L140 96 L280 0" stroke="#FDE68A" stroke-width="1.2" />
-            <path d="M0 176 L105 82" stroke="#FDE68A" stroke-width="0.9" stroke-dasharray="3 3" />
-            <path d="M280 176 L175 82" stroke="#FDE68A" stroke-width="0.9" stroke-dasharray="3 3" />
-          </svg>
-
-          <!-- Wax Seal Open Button -->
-          <button
-            id="openInviteBtn"
-            type="button"
-            aria-label="Tap to open your invite, Baby"
-            class="wax-seal-btn relative z-10 w-20 h-20 rounded-full flex flex-col items-center justify-center text-amber-50 cursor-pointer focus:outline-none active:scale-95 transition-transform"
-          >
-            <span class="text-2xl leading-none mb-0.5">💌</span>
-            <span class="text-[10px] uppercase tracking-widest font-bold text-amber-100">Open</span>
-          </button>
-
-          <span class="relative z-10 mt-3 text-xs font-medium text-amber-200/90 tracking-wide">
-            Tap to open your invite, Baby ✨
-          </span>
+          <!-- Wax seal button -->
+          <div class="flex flex-col items-center">
+            <button
+              id="openBtn"
+              type="button"
+              class="wax-seal w-20 h-20 rounded-full flex items-center justify-center text-[#FFFDF9] cursor-pointer focus:outline-none"
+              aria-label="Open invitation"
+            >
+              <span class="font-serif-editorial italic text-xl tracking-wide">Open</span>
+            </button>
+            <span class="mt-3.5 text-[11px] tracking-wide text-[#9A8F86]">
+              Tap the seal to read
+            </span>
+          </div>
         </div>
-
-        <p class="text-[11px] text-rose-200/60">
-          Turn up your volume • Tonight at 5:00 PM
-        </p>
       </div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- SCREEN 2: DATE DETAILS, ITINERARY & PLAYFUL PROMPT        -->
-    <!-- ========================================================= -->
-    <section id="inviteScreen" class="screen-section screen-hidden">
-      <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-        <!-- Decorative Top Gradient Bar -->
-        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-300 via-rose-400 to-indigo-400"></div>
+    <!-- STEP 2: LETTER & ITINERARY -->
+    <section id="letterView" class="view-panel view-hidden">
+      <div class="stationery-card rounded-2xl p-6 sm:p-9">
+        <!-- Date & Salutation -->
+        <div class="flex items-baseline justify-between border-b border-[#EFE7DC] pb-4 mb-6">
+          <span class="font-serif-editorial italic text-2xl sm:text-[28px] text-[#2A2421]">
+            Hi Baby,
+          </span>
+          <span class="text-xs uppercase tracking-[0.16em] text-[#8C7F75]">
+            Nov 23 • 5:00 PM
+          </span>
+        </div>
 
-        <!-- Header -->
-        <div class="text-center mb-6">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-300/30 text-amber-200 text-xs font-medium mb-3">
-            <span>🌅</span>
-            <span>Today, November 23 • 5:00 PM</span>
-          </div>
-
-          <h2 class="font-serif-display text-3xl sm:text-4xl font-semibold text-amber-50 leading-tight">
-            A Little Sunset Date for Us, <span class="italic text-amber-300">Baby</span> ✨
-          </h2>
-
-          <p class="text-xs sm:text-sm text-rose-100/80 mt-2 flex items-center justify-center gap-1.5">
-            <span>📍</span>
-            <span>SM Mall of Asia (MOA)</span>
+        <!-- Personal Note -->
+        <div class="space-y-3.5 text-[14.5px] sm:text-[15px] text-[#3D3531] leading-relaxed mb-7">
+          <p>
+            I wanted to properly ask you out for later. No need to stress about planning anything—just show up and let me take care of our evening.
+          </p>
+          <p>
+            Here’s what I have in mind for us at MOA:
           </p>
         </div>
 
-        <!-- Itinerary Timeline -->
-        <div class="space-y-3.5 mb-5">
-          <!-- Stop 1: Marugame Udon -->
-          <div class="glass-subcard rounded-2xl p-4 flex items-start gap-3.5 transition-transform hover:scale-[1.01]">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400/25 to-orange-500/25 border border-amber-300/30 flex items-center justify-center text-xl shrink-0">
-              🍜
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2 flex-wrap">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-300">
-                  5:00 PM • Dinner Date
-                </span>
-                <span class="text-[11px] text-rose-200/70 bg-white/5 px-2 py-0.5 rounded-full">
-                  Stop 1
-                </span>
-              </div>
-              <h3 class="text-base sm:text-lg font-semibold text-white mt-0.5">
-                Marugame Udon (MOA)
-              </h3>
-              <p class="text-xs sm:text-sm text-rose-100/80 mt-1 leading-relaxed">
-                Steaming bowls of freshly made udon, crispy tempura, and catching up over a cozy dinner together.
-              </p>
+        <!-- Clean Editorial Itinerary -->
+        <div class="bg-[#FAF6F0] border border-[#EAE0D3] rounded-xl p-4 sm:p-5 mb-7 space-y-4">
+          <div class="flex items-start gap-3.5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-[#9B3632] w-24 shrink-0 pt-0.5">
+              5:00 PM
+            </span>
+            <div class="text-sm">
+              <p class="font-semibold text-[#2A2421]">Dinner at Marugame Udon</p>
+              <p class="text-[#6E655F] text-xs mt-0.5">SM Mall of Asia — warm bowls of udon &amp; tempura</p>
             </div>
           </div>
 
-          <!-- Stop 2: MOA Sky -->
-          <div class="glass-subcard rounded-2xl p-4 flex items-start gap-3.5 transition-transform hover:scale-[1.01]">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400/25 to-indigo-500/25 border border-rose-300/30 flex items-center justify-center text-xl shrink-0">
-              🌃
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2 flex-wrap">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-rose-300">
-                  After Dinner • Stroll
-                </span>
-                <span class="text-[11px] text-rose-200/70 bg-white/5 px-2 py-0.5 rounded-full">
-                  Stop 2
-                </span>
-              </div>
-              <h3 class="text-base sm:text-lg font-semibold text-white mt-0.5">
-                Sunset &amp; City Lights at MOA Sky
-              </h3>
-              <p class="text-xs sm:text-sm text-rose-100/80 mt-1 leading-relaxed">
-                A slow evening walk under the open sky, taking in the city lights and Manila Bay breeze together.
-              </p>
+          <div class="border-t border-[#EAE0D3]"></div>
+
+          <div class="flex items-start gap-3.5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-[#9B3632] w-24 shrink-0 pt-0.5">
+              After
+            </span>
+            <div class="text-sm">
+              <p class="font-semibold text-[#2A2421]">Evening stroll at MOA Sky</p>
+              <p class="text-[#6E655F] text-xs mt-0.5">Slow walk outdoors after dinner</p>
             </div>
           </div>
         </div>
 
-        <!-- Sweet Romantic Note Card -->
-        <div class="rounded-2xl p-4 mb-6 bg-gradient-to-r from-amber-500/15 via-rose-500/15 to-purple-500/15 border border-amber-300/30 relative">
-          <div class="flex items-start gap-3">
-            <span class="text-xl shrink-0 mt-0.5">✨</span>
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-wider text-amber-200 mb-1">
-                Just You &amp; Me, Baby
-              </p>
-              <p class="text-xs sm:text-sm text-amber-50/95 leading-relaxed italic">
-                “All you need to bring is your pretty smile — I’ll take care of the rest tonight.”
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Interactive Playful Yes / No Prompt -->
-        <div id="promptArena" class="rounded-2xl bg-black/25 border border-white/10 p-5 text-center relative overflow-hidden min-h-[185px] flex flex-col justify-between">
+        <!-- Playful Question Area -->
+        <div id="questionBox" class="border-t border-[#EFE7DC] pt-6 text-center relative min-h-[156px] flex flex-col justify-between">
           <div>
-            <p class="font-serif-display text-2xl sm:text-[26px] font-semibold text-amber-50 leading-snug">
-              Will you go on a date with me tonight, Baby?
-            </p>
-            <p id="teaseMessage" class="text-xs text-amber-300/95 font-medium mt-1.5 min-h-[18px] transition-opacity">
-              Choose wisely 💕
+            <h2 class="font-serif-editorial text-2xl sm:text-[27px] font-medium text-[#2A2421]">
+              Are you free for a date tonight?
+            </h2>
+            <p id="hintText" class="text-xs text-[#8C7F75] mt-1 min-h-[16px]">
+              Let me know below
             </p>
           </div>
 
-          <!-- Buttons Container -->
-          <div class="mt-4 flex flex-wrap items-center justify-center gap-3 relative z-10">
+          <div class="mt-5 flex items-center justify-center gap-3 relative">
             <button
               id="yesBtn"
               type="button"
-              class="btn-yes px-6 py-3.5 rounded-2xl text-white font-semibold text-sm sm:text-base tracking-wide cursor-pointer focus:outline-none"
+              class="px-6 py-3 rounded-xl text-[#FFFDF9] text-sm font-medium tracking-wide shadow-sm cursor-pointer focus:outline-none"
             >
-              Yes, I’d love to! 💕
+              Yes, I’ll be there
             </button>
 
             <button
               id="noBtn"
               type="button"
-              class="px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 text-rose-100/85 font-medium text-sm cursor-pointer focus:outline-none"
+              class="px-5 py-3 rounded-xl bg-transparent border border-[#DCD2C4] text-[#6E655F] text-sm font-medium cursor-pointer focus:outline-none"
             >
               No
             </button>
@@ -423,458 +300,285 @@
       </div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- SCREEN 3: CONFIRMED OFFICIAL DATE PASS                    -->
-    <!-- ========================================================= -->
-    <section id="passScreen" class="screen-section screen-hidden">
-      <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-        <!-- Warm Top Celebration Banner -->
-        <div class="text-center mb-5">
-          <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-amber-300/30 to-rose-500/30 border border-amber-200/40 text-3xl mb-3 animate-bounce">
-            🥂
-          </div>
-          <p class="uppercase tracking-[0.22em] text-[11px] font-bold text-amber-300">
-            It’s a Date!
+    <!-- STEP 3: CONFIRMED KEEPSAKE CARD -->
+    <section id="confirmedView" class="view-panel view-hidden">
+      <div class="stationery-card rounded-2xl p-7 sm:p-10 text-center">
+        <div class="border border-[#EFE7DC] rounded-xl p-6 sm:p-8">
+          <p class="text-[11px] uppercase tracking-[0.22em] text-[#9B3632] font-semibold mb-2">
+            Confirmed
           </p>
-          <h2 class="font-serif-display text-3xl sm:text-4xl font-semibold text-white mt-1">
-            Official Date Pass 🎟️
+
+          <h2 class="font-serif-editorial text-3xl sm:text-4xl font-medium text-[#2A2421] mb-2">
+            See you at 5:00 PM, <span class="italic">Baby</span>
           </h2>
-          <p class="text-xs sm:text-sm text-rose-100/80 mt-1">
-            Can’t wait to see you later at 5:00 PM, Baby! ❤️
+
+          <p class="text-xs sm:text-sm text-[#6E655F] mb-6">
+            November 23 • SM Mall of Asia
+          </p>
+
+          <div class="bg-[#FAF6F0] border border-[#EAE0D3] rounded-xl p-4 text-left space-y-2.5 text-xs sm:text-sm mb-6">
+            <div class="flex justify-between">
+              <span class="text-[#8C7F75]">Dinner</span>
+              <span class="font-medium text-[#2A2421]">Marugame Udon</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#8C7F75]">After</span>
+              <span class="font-medium text-[#2A2421]">MOA Sky Stroll</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#8C7F75]">Guest</span>
+              <span class="font-medium text-[#2A2421]">Baby</span>
+            </div>
+          </div>
+
+          <p class="font-handwriting text-2xl text-[#4A403A] mb-1">
+            Can’t wait to see you later.
+          </p>
+          <p class="text-[11px] text-[#9A8F86]">
+            Send me a screenshot when you’re ready
           </p>
         </div>
 
-        <!-- Digital Boarding / Date Pass Card -->
-        <div class="rounded-2xl bg-gradient-to-b from-amber-100/12 to-rose-950/35 border border-amber-300/35 p-5 shadow-lg">
-          <div class="flex items-center justify-between border-b border-amber-200/15 pb-3.5 mb-3.5">
-            <div>
-              <span class="text-[10px] uppercase tracking-widest text-amber-200/75 block">VIP Guest</span>
-              <span class="font-serif-display text-2xl font-bold text-amber-200">Baby 💕</span>
-            </div>
-            <div class="text-right">
-              <span class="text-[10px] uppercase tracking-widest text-amber-200/75 block">Date &amp; Time</span>
-              <span class="text-sm font-semibold text-white">Nov 23 • 5:00 PM</span>
-            </div>
-          </div>
-
-          <div class="space-y-3 text-xs sm:text-sm">
-            <div class="flex justify-between items-center gap-2">
-              <span class="text-rose-200/75">Venue</span>
-              <span class="font-semibold text-white text-right">SM Mall of Asia (MOA)</span>
-            </div>
-            <div class="flex justify-between items-center gap-2">
-              <span class="text-rose-200/75">Itinerary</span>
-              <span class="font-semibold text-amber-200 text-right">Marugame Udon → MOA Sky</span>
-            </div>
-            <div class="flex justify-between items-center gap-2">
-              <span class="text-rose-200/75">Vibe</span>
-              <span class="font-semibold text-rose-200 text-right">Sunset Twilight &amp; City Lights ✨</span>
-            </div>
-          </div>
-
-          <!-- Perforated Ticket Cutout Line -->
-          <div class="ticket-divider my-5"></div>
-
-          <!-- Sweet Closing Note -->
-          <div class="text-center">
-            <p class="font-serif-display italic text-lg sm:text-xl text-amber-100 leading-snug">
-              “Good food, twilight skies, and my favorite person.”
-            </p>
-            <p class="text-[11px] text-amber-200/75 mt-2">
-              📸 Screenshot this pass &amp; send it to me when you’re ready!
-            </p>
-          </div>
-        </div>
-
-        <!-- Subtle Replay Invite Button -->
-        <div class="mt-6 text-center">
-          <button
-            id="replayBtn"
-            type="button"
-            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-amber-200/80 hover:text-amber-100 bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
-          >
-            <span>↺</span>
-            <span>Replay Invite</span>
-          </button>
-        </div>
+        <button
+          id="resetBtn"
+          type="button"
+          class="mt-5 text-xs text-[#8C7F75] hover:text-[#2A2421] underline underline-offset-4 cursor-pointer"
+        >
+          Read note again
+        </button>
       </div>
     </section>
 
   </main>
 
   <script>
-    /**
-     * 1. TWINKLING TWILIGHT STARFIELD CANVAS
-     * Responsive full-viewport canvas creating a warm starry twilight atmosphere.
-     */
-    (function initStarfield() {
-      const canvas = document.getElementById('starfield');
-      const ctx = canvas.getContext('2d');
-      let stars = [];
-      let width = 0;
-      let height = 0;
+    // Soft electric-piano loop (Fmaj7 -> Em7 -> Dm7 -> Cmaj7) for iOS Safari & desktop
+    const SoftPianoLoop = (function () {
+      let ctx = null;
+      let master = null;
+      let active = false;
+      let timer = null;
+      let step = 0;
 
-      function resizeCanvas() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        createStars();
-      }
-
-      function createStars() {
-        const count = Math.min(95, Math.floor((width * height) / 9000));
-        stars = [];
-        for (let i = 0; i < count; i++) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height * 0.85,
-            radius: Math.random() * 1.5 + 0.4,
-            alpha: Math.random(),
-            speed: Math.random() * 0.015 + 0.005,
-            hue: Math.random() > 0.35 ? '254, 243, 199' : '253, 186, 116'
-          });
-        }
-      }
-
-      function animateStars() {
-        ctx.clearRect(0, 0, width, height);
-        for (const star of stars) {
-          star.alpha += star.speed;
-          if (star.alpha > 1 || star.alpha < 0.15) {
-            star.speed = -star.speed;
-          }
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${star.hue}, ${Math.max(0.15, Math.min(1, star.alpha))})`;
-          ctx.fill();
-        }
-        requestAnimationFrame(animateStars);
-      }
-
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-      animateStars();
-    })();
-
-    /**
-     * 2. ROMANTIC WEB AUDIO API SYNTHESIZER (iOS/iPadOS Safari Friendly)
-     * Plays a lush, warm electric-piano & ambient-pad progression (Fmaj7 -> Em7 -> Dm7 -> Cmaj7)
-     * with delicate music-box melody notes. Unlocked cleanly on user gesture.
-     */
-    const RomanticMusicPlayer = (function () {
-      let audioCtx = null;
-      let masterGain = null;
-      let isPlaying = false;
-      let stepTimer = null;
-      let stepIndex = 0;
-
-      // Chord progression: Fmaj7 -> Em7 -> Dm7 -> Cmaj7 (frequencies in Hz)
-      const progression = [
-        {
-          chords: [174.61, 220.00, 261.63, 329.63], // F3, A3, C4, E4 (Fmaj7)
-          melody: [659.25, 587.33, 523.25, 659.25]  // E5, D5, C5, E5
-        },
-        {
-          chords: [164.81, 196.00, 246.94, 293.66], // E3, G3, B3, D4 (Em7)
-          melody: [587.33, 493.88, 392.00, 493.88]  // D5, B4, G4, B4
-        },
-        {
-          chords: [146.83, 174.61, 220.00, 261.63], // D3, F3, A3, C4 (Dm7)
-          melody: [523.25, 440.00, 349.23, 440.00]  // C5, A4, F4, A4
-        },
-        {
-          chords: [130.81, 196.00, 246.94, 329.63], // C3, G3, B3, E4 (Cmaj7)
-          melody: [493.88, 523.25, 659.25, 783.99]  // B4, C5, E5, G5
-        }
+      const bars = [
+        { chord: [174.61, 220.00, 261.63, 329.63], note: [659.25, 587.33, 523.25, 659.25] },
+        { chord: [164.81, 196.00, 246.94, 293.66], note: [587.33, 493.88, 392.00, 493.88] },
+        { chord: [146.83, 174.61, 220.00, 261.63], note: [523.25, 440.00, 349.23, 440.00] },
+        { chord: [130.81, 196.00, 246.94, 329.63], note: [493.88, 523.25, 659.25, 783.99] }
       ];
 
-      function initContext() {
-        if (!audioCtx) {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          audioCtx = new AudioContextClass();
-
-          masterGain = audioCtx.createGain();
-          masterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-          masterGain.connect(audioCtx.destination);
+      function ensureAudio() {
+        if (!ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          ctx = new AudioCtx();
+          master = ctx.createGain();
+          master.gain.setValueAtTime(0.0001, ctx.currentTime);
+          master.connect(ctx.destination);
         }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
+        if (ctx.state === 'suspended') {
+          ctx.resume();
         }
       }
 
-      // Warm Rhodes-style electric piano chord voice
-      function playPadChord(freqs, duration) {
-        if (!audioCtx || !isPlaying) return;
-        const now = audioCtx.currentTime;
+      function triggerChord(freqs, lengthSec) {
+        if (!ctx || !active) return;
+        const now = ctx.currentTime;
 
-        freqs.forEach((freq, idx) => {
-          const osc = audioCtx.createOscillator();
-          const subOsc = audioCtx.createOscillator();
-          const filter = audioCtx.createBiquadFilter();
-          const voiceGain = audioCtx.createGain();
+        freqs.forEach((f, i) => {
+          const osc = ctx.createOscillator();
+          const filter = ctx.createBiquadFilter();
+          const gain = ctx.createGain();
 
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now);
-
-          // Subtle warm harmonic overtone
-          subOsc.type = 'triangle';
-          subOsc.frequency.setValueAtTime(freq * 2, now);
-
-          const subGain = audioCtx.createGain();
-          subGain.gain.setValueAtTime(0.08, now);
+          osc.frequency.setValueAtTime(f, now);
 
           filter.type = 'lowpass';
-          filter.frequency.setValueAtTime(920, now);
-          filter.frequency.exponentialRampToValueAtTime(420, now + duration);
+          filter.frequency.setValueAtTime(780, now);
+          filter.frequency.exponentialRampToValueAtTime(360, now + lengthSec);
 
-          // Gentle swell and release envelope
-          const peakGain = 0.045 / (1 + idx * 0.12);
-          voiceGain.gain.setValueAtTime(0.0001, now);
-          voiceGain.gain.linearRampToValueAtTime(peakGain, now + 0.45);
-          voiceGain.gain.exponentialRampToValueAtTime(0.0001, now + duration + 0.4);
+          const peak = 0.038 / (1 + i * 0.14);
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.linearRampToValueAtTime(peak, now + 0.5);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + lengthSec + 0.35);
 
           osc.connect(filter);
-          subOsc.connect(subGain);
-          subGain.connect(filter);
-          filter.connect(voiceGain);
-          voiceGain.connect(masterGain);
+          filter.connect(gain);
+          gain.connect(master);
 
           osc.start(now);
-          subOsc.start(now);
-          osc.stop(now + duration + 0.5);
-          subOsc.stop(now + duration + 0.5);
+          osc.stop(now + lengthSec + 0.45);
         });
       }
 
-      // Delicate music-box bell melody note
-      function playMusicBoxNote(freq) {
-        if (!audioCtx || !isPlaying) return;
-        const now = audioCtx.currentTime;
+      function triggerNote(freq) {
+        if (!ctx || !active) return;
+        const now = ctx.currentTime;
 
-        const osc = audioCtx.createOscillator();
-        const overtone = audioCtx.createOscillator();
-        const noteGain = audioCtx.createGain();
-        const overtoneGain = audioCtx.createGain();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
 
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now);
 
-        overtone.type = 'sine';
-        overtone.frequency.setValueAtTime(freq * 3, now);
-        overtoneGain.gain.setValueAtTime(0.04, now);
-        overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(0.028, now + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.5);
 
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(0.038, now + 0.03);
-        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.45);
-
-        osc.connect(noteGain);
-        overtone.connect(overtoneGain);
-        overtoneGain.connect(noteGain);
-        noteGain.connect(masterGain);
+        osc.connect(gain);
+        gain.connect(master);
 
         osc.start(now);
-        overtone.start(now);
-        osc.stop(now + 1.55);
-        overtone.stop(now + 1.55);
+        osc.stop(now + 1.6);
       }
 
-      function scheduleStep() {
-        if (!isPlaying) return;
-        const barIndex = Math.floor(stepIndex / 4) % progression.length;
-        const beatInBar = stepIndex % 4;
-        const currentBar = progression[barIndex];
+      function tick() {
+        if (!active) return;
+        const bar = bars[Math.floor(step / 4) % bars.length];
+        const beat = step % 4;
 
-        // Trigger warm chord on beat 0 of every 4-beat bar
-        if (beatInBar === 0) {
-          playPadChord(currentBar.chords, 3.3);
+        if (beat === 0) {
+          triggerChord(bar.chord, 3.4);
         }
-
-        // Trigger delicate music-box melody note on each beat
-        const melodyFreq = currentBar.melody[beatInBar];
-        if (melodyFreq) {
-          playMusicBoxNote(melodyFreq);
-        }
-
-        stepIndex++;
+        triggerNote(bar.note[beat]);
+        step++;
       }
 
       function start() {
-        initContext();
-        if (isPlaying) return;
-        isPlaying = true;
+        ensureAudio();
+        if (active) return;
+        active = true;
 
-        const now = audioCtx.currentTime;
-        masterGain.gain.cancelScheduledValues(now);
-        masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), now);
-        masterGain.gain.linearRampToValueAtTime(0.85, now + 0.8);
+        const now = ctx.currentTime;
+        master.gain.cancelScheduledValues(now);
+        master.gain.setValueAtTime(Math.max(0.0001, master.gain.value), now);
+        master.gain.linearRampToValueAtTime(0.8, now + 0.9);
 
-        scheduleStep();
-        stepTimer = setInterval(scheduleStep, 850);
-        updateToggleUI(true);
+        tick();
+        timer = setInterval(tick, 900);
+        syncUI(true);
       }
 
       function stop() {
-        if (!isPlaying) return;
-        isPlaying = false;
-        if (stepTimer) {
-          clearInterval(stepTimer);
-          stepTimer = null;
+        if (!active) return;
+        active = false;
+        clearInterval(timer);
+        timer = null;
+
+        if (ctx && master) {
+          const now = ctx.currentTime;
+          master.gain.cancelScheduledValues(now);
+          master.gain.setValueAtTime(Math.max(0.0001, master.gain.value), now);
+          master.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
         }
-        if (audioCtx && masterGain) {
-          const now = audioCtx.currentTime;
-          masterGain.gain.cancelScheduledValues(now);
-          masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), now);
-          masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
-        }
-        updateToggleUI(false);
+        syncUI(false);
       }
 
       function toggle() {
-        if (isPlaying) {
-          stop();
-        } else {
-          start();
-        }
+        active ? stop() : start();
       }
 
-      function updateToggleUI(playing) {
-        const btn = document.getElementById('musicToggleBtn');
-        const icon = document.getElementById('musicIcon');
-        const label = document.getElementById('musicLabel');
-        if (!btn) return;
-
-        if (playing) {
-          btn.classList.remove('music-muted');
-          btn.classList.add('music-playing');
-          icon.textContent = '🎵';
-          label.textContent = 'Playing';
-        } else {
-          btn.classList.remove('music-playing');
-          btn.classList.add('music-muted');
-          icon.textContent = '🔇';
-          label.textContent = 'Muted';
-        }
+      function syncUI(on) {
+        const btn = document.getElementById('soundToggle');
+        const label = document.getElementById('soundLabel');
+        if (!btn || !label) return;
+        btn.classList.toggle('sound-active', on);
+        btn.classList.toggle('sound-muted', !on);
+        label.textContent = on ? 'Sound on' : 'Sound off';
       }
 
-      return { start, stop, toggle, isPlaying: () => isPlaying };
+      return { start, toggle };
     })();
 
-    /**
-     * 3. SCREEN NAVIGATION & INTERACTIVE LOGIC
-     */
     document.addEventListener('DOMContentLoaded', () => {
-      const introScreen = document.getElementById('introScreen');
-      const inviteScreen = document.getElementById('inviteScreen');
-      const passScreen = document.getElementById('passScreen');
+      const coverView = document.getElementById('coverView');
+      const letterView = document.getElementById('letterView');
+      const confirmedView = document.getElementById('confirmedView');
 
-      const openInviteBtn = document.getElementById('openInviteBtn');
-      const musicToggleBtn = document.getElementById('musicToggleBtn');
+      const openBtn = document.getElementById('openBtn');
       const yesBtn = document.getElementById('yesBtn');
       const noBtn = document.getElementById('noBtn');
-      const replayBtn = document.getElementById('replayBtn');
-      const promptArena = document.getElementById('promptArena');
-      const teaseMessage = document.getElementById('teaseMessage');
+      const resetBtn = document.getElementById('resetBtn');
+      const soundToggle = document.getElementById('soundToggle');
+      const questionBox = document.getElementById('questionBox');
+      const hintText = document.getElementById('hintText');
 
-      // Cute playful messages when she tries to tap "No"
-      const dodgePhrases = [
-        "Are you sure? 🥺",
-        "Try again, Baby! 😉",
-        "Wrong button 😜",
-        "You know you want to! 💕",
-        "Marugame Udon is waiting for us! 🍜",
-        "MOA Sky won’t be the same without you! 🌃",
-        "Okay fine, just tap Yes! ❤️"
+      const playfulHints = [
+        'Are you sure?',
+        'Try again',
+        'Nice try',
+        'Wrong button',
+        'You know you want udon',
+        'Just tap Yes'
       ];
+      let dodgeTries = 0;
 
-      let dodgeCount = 0;
-
-      // Floating Music Pill Toggle
-      musicToggleBtn.addEventListener('click', () => {
-        RomanticMusicPlayer.toggle();
-      });
-
-      function switchScreen(fromEl, toEl) {
-        fromEl.classList.remove('screen-visible');
-        fromEl.classList.add('screen-hidden');
-
+      function showView(hideEl, showEl) {
+        hideEl.classList.remove('view-active');
+        hideEl.classList.add('view-hidden');
         setTimeout(() => {
-          toEl.classList.remove('screen-hidden');
-          toEl.classList.add('screen-visible');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 280);
+          showEl.classList.remove('view-hidden');
+          showEl.classList.add('view-active');
+        }, 220);
       }
 
-      // Open Envelope -> Unlock & Auto-Start Romantic Music + Show Date Itinerary
-      openInviteBtn.addEventListener('click', () => {
-        RomanticMusicPlayer.start();
-        spawnHeartBurst(10);
-        switchScreen(introScreen, inviteScreen);
+      soundToggle.addEventListener('click', () => SoftPianoLoop.toggle());
+
+      openBtn.addEventListener('click', () => {
+        SoftPianoLoop.start();
+        showView(coverView, letterView);
       });
 
-      // Playful Dodging "No" Button (Supports iPhone/iPad Touch + Desktop Hover/Click)
-      function dodgeNoButton(e) {
+      function moveNoButton(e) {
         if (e) {
           e.preventDefault();
           e.stopPropagation();
         }
+        hintText.textContent = playfulHints[dodgeTries % playfulHints.length];
+        hintText.style.color = '#9B3632';
+        dodgeTries++;
 
-        // Update tease text
-        teaseMessage.textContent = dodgePhrases[dodgeCount % dodgePhrases.length];
-        dodgeCount++;
+        const box = questionBox.getBoundingClientRect();
+        const btn = noBtn.getBoundingClientRect();
 
-        // Calculate safe bounds inside promptArena so the button stays visible & tappable
-        const arenaRect = promptArena.getBoundingClientRect();
-        const btnRect = noBtn.getBoundingClientRect();
+        const rangeX = Math.max(36, (box.width - btn.width) * 0.38);
+        const rangeY = Math.max(18, (box.height - btn.height) * 0.28);
 
-        const maxOffsetX = Math.max(40, (arenaRect.width - btnRect.width) * 0.42);
-        const maxOffsetY = Math.max(24, (arenaRect.height - btnRect.height) * 0.36);
+        const offsetX = (Math.random() * 2 - 1) * rangeX;
+        const offsetY = (Math.random() * 2 - 1) * rangeY;
 
-        // Generate a noticeable jump away from current position
-        const randomX = (Math.random() * 2 - 1) * maxOffsetX;
-        const randomY = (Math.random() * 2 - 1) * maxOffsetY;
-
-        noBtn.style.transform = `translate(${randomX.toFixed(0)}px, ${randomY.toFixed(0)}px)`;
+        noBtn.style.transform = `translate(${offsetX.toFixed(0)}px, ${offsetY.toFixed(0)}px)`;
       }
 
-      // Bind touchstart, pointerdown, mouseover, and click for reliable iOS Safari & desktop responsiveness
-      noBtn.addEventListener('touchstart', dodgeNoButton, { passive: false });
-      noBtn.addEventListener('pointerdown', dodgeNoButton);
-      noBtn.addEventListener('mouseover', dodgeNoButton);
-      noBtn.addEventListener('click', dodgeNoButton);
+      noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
+      noBtn.addEventListener('pointerdown', moveNoButton);
+      noBtn.addEventListener('mouseover', moveNoButton);
+      noBtn.addEventListener('click', moveNoButton);
 
-      // Tap "Yes" -> Celebrate & Reveal Official Date Pass
       yesBtn.addEventListener('click', () => {
-        spawnHeartBurst(28);
-        switchScreen(inviteScreen, passScreen);
+        releaseSubtleHearts(14);
+        showView(letterView, confirmedView);
       });
 
-      // Replay Invite
-      replayBtn.addEventListener('click', () => {
-        dodgeCount = 0;
+      resetBtn.addEventListener('click', () => {
+        dodgeTries = 0;
         noBtn.style.transform = 'translate(0px, 0px)';
-        teaseMessage.textContent = 'Choose wisely 💕';
-        switchScreen(passScreen, introScreen);
+        hintText.textContent = 'Let me know below';
+        hintText.style.color = '#8C7F75';
+        showView(confirmedView, coverView);
       });
 
-      /**
-       * 3. CELEBRATORY FLOATING HEARTS & SPARKLES BURST
-       */
-      function spawnHeartBurst(count) {
-        const emojis = ['❤️', '💕', '✨', '💖', '🌅', '🍜'];
-        for (let i = 0; i < count; i++) {
+      function releaseSubtleHearts(total) {
+        for (let i = 0; i < total; i++) {
           setTimeout(() => {
-            const heart = document.createElement('span');
-            heart.className = 'floating-heart';
-            heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            heart.style.left = `${Math.random() * 92 + 4}vw`;
-            heart.style.fontSize = `${Math.random() * 16 + 16}px`;
-            heart.style.animationDuration = `${Math.random() * 1.8 + 2.2}s`;
-            document.body.appendChild(heart);
-
-            heart.addEventListener('animationend', () => {
-              heart.remove();
-            });
-          }, i * 65);
+            const el = document.createElement('span');
+            el.className = 'petal-particle font-serif-editorial';
+            el.textContent = '♥';
+            el.style.left = `${Math.random() * 88 + 6}vw`;
+            el.style.fontSize = `${Math.random() * 10 + 13}px`;
+            el.style.animationDuration = `${Math.random() * 1.6 + 2.4}s`;
+            document.body.appendChild(el);
+            el.addEventListener('animationend', () => el.remove());
+          }, i * 85);
         }
       }
     });
